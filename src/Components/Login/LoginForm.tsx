@@ -12,8 +12,8 @@ interface infoObj {
 const LoginForm: React.FC = () => {
   const [info, setInfo] = useState<infoObj>({ email: "", password: "" });
 
-  const [closeLoginForm, login] = useAuthStore(
-    (state) => [state.closeLoginForm, state.login],
+  const [closeLoginForm, login, isLoginFormOpened] = useAuthStore(
+    (state) => [state.closeLoginForm, state.login, state.isLoginFormOpened],
     shallow
   );
   const onLogin = useCallback(
@@ -37,6 +37,8 @@ const LoginForm: React.FC = () => {
     },
     []
   );
+
+  if (!isLoginFormOpened) return <></>;
 
   return (
     <>
