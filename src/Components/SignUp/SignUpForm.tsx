@@ -1,6 +1,20 @@
+import { useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+
 const SignUpForm: React.FC = () => {
+  const navigate = useNavigate();
+  const signUpHandler = useCallback(
+    (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      navigate("/signup/success");
+    },
+    [navigate]
+  );
   return (
-    <form className="[&_input]:border-b-[1px] [&_input]:border-black [&_input]:outline-none">
+    <form
+      className="[&_input]:border-b-[1px] [&_input]:border-black [&_input]:outline-none"
+      onSubmit={signUpHandler}
+    >
       <div>
         <label>이메일</label>
         <input type="text" id="email" name="email" />

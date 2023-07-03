@@ -3,6 +3,7 @@ import { useAuthStore } from "../../store";
 import { shallow } from "zustand/shallow";
 import { createPortal } from "react-dom";
 import Backdrop from "../UI/Backdrop";
+import KakaoButton from "../Kakao/KakaoButton";
 
 interface infoObj {
   email: string;
@@ -74,9 +75,10 @@ const LoginForm: React.FC = () => {
               onChange={inputHandler}
             />
           </div>
-          <button className="border-[1px] border-black w-3/4 h-12 mx-auto block my-16">
+          <button className="border-[1px] border-black w-3/4 h-12 mx-auto block mt-16 mb-4">
             로그인
           </button>
+          <KakaoButton />
         </form>,
         modalRoot
       )}

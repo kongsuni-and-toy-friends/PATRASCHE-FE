@@ -4,6 +4,7 @@ import LoginPage from "./routes/LoginPage";
 import SignUpPage from "./routes/SignUpPage";
 import SignUpOptionsPage from "./routes/SignUpOptionPage";
 import KakaoPage from "./routes/KakaoPage";
+import SignUpSuccessPage from "./routes/SignUpSuccessPage";
 function App() {
   return (
     <>
@@ -14,6 +15,7 @@ function App() {
         <Route path="signup">
           <Route path="" element={<SignUpOptionsPage />} />
           <Route path="email" element={<SignUpPage />} />
+          <Route path="success" element={<SignUpSuccessPage />} />
         </Route>
       </Routes>
     </>
