@@ -1,6 +1,7 @@
 import { shallow } from "zustand/shallow";
 import { useAuthStore } from "../../store";
 import { Link } from "react-router-dom";
+import LoginForm from "../Login/LoginForm";
 
 const Header: React.FC = () => {
   const [user, openLoginForm, logout] = useAuthStore(
@@ -10,6 +11,7 @@ const Header: React.FC = () => {
 
   return (
     <div className="w-[100%] text-right px-[20px] py-[10px] border-b-[1px] border-b-black">
+      <LoginForm />
       {user === null ? (
         <>
           <button onClick={() => openLoginForm()} className="mx-5">

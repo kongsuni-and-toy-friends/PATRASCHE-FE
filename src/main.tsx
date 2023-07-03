@@ -4,12 +4,14 @@ import App from "./App.tsx";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import Header from "./Components/UI/Header.tsx";
+import Nav from "./Components/UI/Nav.tsx";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     {/* <RouterProvider router={router}> */}
     <BrowserRouter>
       <Header />
+      <Nav />
       <main className="xl:w-[1280px] xl:mx-auto">
         <App />
       </main>
