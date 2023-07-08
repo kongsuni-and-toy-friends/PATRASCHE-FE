@@ -18,17 +18,4 @@ const useAuthStore = create<authState>()((set) => ({
   closeLoginForm: () => set(() => ({ isLoginFormOpened: false })),
 }));
 
-interface countState {
-  count: number;
-  increase: () => void;
-}
-
-const useCountStore = create<countState>()((set) => ({
-  count: 0,
-  increase: () =>
-    set((state) => ({
-      count: state.count + 1,
-    })),
-}));
-
-export { useAuthStore, useCountStore };
+export { useAuthStore };
