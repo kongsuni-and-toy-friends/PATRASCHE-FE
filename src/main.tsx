@@ -8,7 +8,6 @@ import Nav from "./Components/UI/Nav.tsx";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    {/* <RouterProvider router={router}> */}
     <BrowserRouter>
       <Header />
       <Nav />
@@ -16,6 +15,5 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <App />
       </main>
     </BrowserRouter>
-    {/* </RouterProvider> */}
   </React.StrictMode>
 );

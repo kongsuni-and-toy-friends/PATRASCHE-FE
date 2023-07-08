@@ -6,7 +6,7 @@ const KakaoButton: React.FC = () => {
   const kakaoLogin = useCallback(
     (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       event.preventDefault();
-      Kakao.Auth.authorize({ redirectUri: "http://localhost:5173" });
+      Kakao.Auth.authorize({ redirectUri: "http://localhost:5173/kakao" });
     },
     []
   );
@@ -18,7 +18,7 @@ const KakaoButton: React.FC = () => {
     <button className={buttonClass} onClick={kakaoLogin}>
       <img
         className="w-[30px] h-[30px] mx-[12px]"
-        src="/public/kakao.svg"
+        src="/kakao.svg"
         alt="카카오 로그인"
       />
       <span className="text-black/85 grow">카카오 로그인</span>
