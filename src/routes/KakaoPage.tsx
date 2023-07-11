@@ -29,7 +29,7 @@ const KakaoPage: React.FC = () => {
       }
     };
     if (url.get("code")) getToken();
-  }, [location.search, navigate]);
+  }, [location.search, navigate, login]);
   return <>로그인 중</>;
 };
 
