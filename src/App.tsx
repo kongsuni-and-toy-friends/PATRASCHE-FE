@@ -5,6 +5,9 @@ import SignUpPage from "./routes/SignUpPage";
 import SignUpOptionsPage from "./routes/SignUpOptionPage";
 import KakaoPage from "./routes/KakaoPage";
 import SignUpSuccessPage from "./routes/SignUpSuccessPage";
+import AnalyzePage from "./routes/AnalyzePage";
+import MatchingPage from "./routes/MatchingPage";
+import MyPage from "./routes/MyPage";
 function App() {
   return (
     <>
@@ -17,6 +20,9 @@ function App() {
           <Route path="email" element={<SignUpPage />} />
           <Route path="success" element={<SignUpSuccessPage />} />
         </Route>
+        <Route path="analyze" element={<AnalyzePage />} />
+        <Route path="mathcing" element={<MatchingPage />} />
+        <Route path='mypage' element={<MyPage />} />
       </Routes>
     </>
   );
