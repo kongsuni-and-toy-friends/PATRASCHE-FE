@@ -97,11 +97,10 @@ const SignUpForm: React.FC = () => {
           address: `${info.address} ${info.detailAddress} ${info.extraAddress}`,
           pw: info.password,
         });
-
-        navigate("/signup/success");
         console.log(res);
+        navigate("/signup/success");
       } catch (error) {
-        console.log("에러:", error);
+        console.log("[에러]", error);
       }
     },
     [navigate, info]
@@ -184,7 +183,7 @@ const SignUpForm: React.FC = () => {
         setDuplicateCheckMent("이미 가입된 계정입니다.");
       }
     } catch (error) {
-      console.log(error);
+      console.log("[에러]", error);
     }
   }, [info.email]);
 
@@ -261,8 +260,8 @@ const SignUpForm: React.FC = () => {
           type="number"
           id="phone2"
           name="phone2"
+          value={info.phone2}
           onChange={changeHandler}
-          maxLength={4}
           required
         />
         <span>-</span>
@@ -270,8 +269,8 @@ const SignUpForm: React.FC = () => {
           type="number"
           id="phone3"
           name="phone3"
+          value={info.phone3}
           onChange={changeHandler}
-          maxLength={4}
           required
         />
       </div>

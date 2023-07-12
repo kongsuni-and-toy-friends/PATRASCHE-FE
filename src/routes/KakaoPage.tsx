@@ -11,24 +11,24 @@ const KakaoPage: React.FC = () => {
   useEffect(() => {
     const url = new URLSearchParams(location.search);
     console.log(url.get("code"));
-    const getToken = async () => {
-      try {
-        const res = await axios.post("http://43.201.23.120:5173/auth/kakao", {
-          code: url.get("code"),
-        });
+    // const getToken = async () => {
+    //   try {
+    //     const res = await axios.post("http://43.201.23.120:5173/auth/kakao", {
+    //       code: url.get("code"),
+    //     });
 
-        console.log(res.data);
-        if (!res.data.registered)
-          navigate("/signup/email", { state: res.data });
-        else {
-          login(res.data.nickname);
-          navigate("/");
-        }
-      } catch {
-        return;
-      }
-    };
-    if (url.get("code")) getToken();
+    //     console.log(res.data);
+    //     if (!res.data.registered)
+    //       navigate("/signup/email", { state: res.data });
+    //     else {
+    //       login(res.data.nickname);
+    //       navigate("/");
+    //     }
+    //   } catch {
+    //     return;
+    //   }
+    // };
+    // if (url.get("code")) getToken();
   }, [location.search, navigate, login]);
   return <>로그인 중</>;
 };

@@ -1,9 +1,10 @@
 import { FormEvent, useCallback, useState } from "react";
-import { useAuthStore } from "../../store";
+import { useAuthStore } from "@/store";
 import { shallow } from "zustand/shallow";
 import { createPortal } from "react-dom";
 import Backdrop from "../UI/Backdrop";
 import KakaoButton from "../Kakao/KakaoButton";
+import request from "@/libs/axios";
 
 interface infoObj {
   email: string;
@@ -13,17 +14,28 @@ interface infoObj {
 const LoginForm: React.FC = () => {
   const [info, setInfo] = useState<infoObj>({ email: "", password: "" });
 
-  const [closeLoginForm, login, isLoginFormOpened] = useAuthStore(
+  const [closeLoginForm, login] = useAuthStore(
     (state) => [state.closeLoginForm, state.login, state.isLoginFormOpened],
     shallow
   );
-  const onLogin = useCallback(
-    (event: FormEvent<HTMLFormElement>) => {
+  const submitHandler = useCallback(
+    async (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-      login(info.email);
-      closeLoginForm();
+      try {
+        const res = await request.post("/auth/login", {
+          email: info.email,
+          pw: info.password,
+        });
+        console.log(res);
+        login("테스트", res.data.access, res.data.refresh);
+        closeLoginForm();
+      } catch (error) {
+        console.log("[에러]", error);
+      }
+      // login(info.email);
+      // closeLoginForm();
     },
-    [info.email, login, closeLoginForm]
+    [info.email, login, closeLoginForm, info.password]
   );
 
   const backdropRoot = document.getElementById("backdrop") as HTMLElement;
@@ -39,14 +51,12 @@ const LoginForm: React.FC = () => {
     []
   );
 
-  if (!isLoginFormOpened) return <></>;
-
   return (
     <>
       {createPortal(<Backdrop onClick={closeLoginForm} />, backdropRoot)}
       {createPortal(
         <form
-          onSubmit={onLogin}
+          onSubmit={submitHandler}
           className="z-20 fixed top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] border-2 border-black w-[600px] h-[400px] bg-white p-[50px]"
         >
           <div className="my-8">
