@@ -9,7 +9,7 @@ const Nav: React.FC = () => {
         파트라슈
       </Link>
       {user !== null && (
-        <div className="[&>a]:mx-[100px]">
+        <div className="[&>a]:mx-[40px]">
           <NavLink
             to="/analyze"
             className={({ isActive }) => {
@@ -19,7 +19,7 @@ const Nav: React.FC = () => {
             대화 분석
           </NavLink>
           <NavLink
-            to="/mathcing"
+            to="/matching"
             className={({ isActive }) => {
               if (isActive) return "font-bold";
             }}

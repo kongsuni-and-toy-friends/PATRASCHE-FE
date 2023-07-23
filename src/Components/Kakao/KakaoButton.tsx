@@ -1,15 +1,7 @@
-import { useCallback } from "react";
+import useKakaoButton from "@/Logic/Components/Kakao/useKakaoButton";
 
-const { Kakao } = window;
-
-const KakaoButton: React.FC = () => {
-  const kakaoLogin = useCallback(
-    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-      event.preventDefault();
-      Kakao.Auth.authorize({ redirectUri: "http://localhost:5173/kakao" });
-    },
-    []
-  );
+const KakaoButton = () => {
+  const { kakaoLogin } = useKakaoButton();
 
   const buttonClass =
     "flex mx-auto bg-[#FEE500] rounded-[12px] items-center w-[222px] h-[45px]";

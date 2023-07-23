@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import KakaoButton from "../Components/Kakao/KakaoButton";
 
-const SignUpOptionsPage: React.FC = () => {
+const SignUpOptionsPage = () => {
   return (
     <>
       <Link
