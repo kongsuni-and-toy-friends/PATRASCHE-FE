@@ -1,55 +1,13 @@
-import { FormEvent, useCallback, useState } from "react";
-import { useAuthStore } from "@/store";
-import { shallow } from "zustand/shallow";
 import { createPortal } from "react-dom";
 import Backdrop from "../UI/Backdrop";
 import KakaoButton from "../Kakao/KakaoButton";
-import request from "@/libs/axios";
-
-interface infoObj {
-  email: string;
-  password: string;
-}
+import useLoginForm from "@/Logic/Components/Login/useLoginForm";
 
 const LoginForm: React.FC = () => {
-  const [info, setInfo] = useState<infoObj>({ email: "", password: "" });
-
-  const [closeLoginForm, login] = useAuthStore(
-    (state) => [state.closeLoginForm, state.login, state.isLoginFormOpened],
-    shallow
-  );
-  const submitHandler = useCallback(
-    async (event: FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
-      try {
-        const res = await request.post("/auth/login", {
-          email: info.email,
-          pw: info.password,
-        });
-        console.log(res);
-        login("테스트", res.data.access, res.data.refresh);
-        closeLoginForm();
-      } catch (error) {
-        console.log("[에러]", error);
-      }
-      // login(info.email);
-      // closeLoginForm();
-    },
-    [info.email, login, closeLoginForm, info.password]
-  );
-
   const backdropRoot = document.getElementById("backdrop") as HTMLElement;
   const modalRoot = document.getElementById("modal") as HTMLElement;
 
-  const inputHandler = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setInfo((state) => ({
-        ...state,
-        [event.target.name]: event.target.value,
-      }));
-    },
-    []
-  );
+  const { info, closeLoginForm, submitHandler, inputHandler } = useLoginForm();
 
   return (
     <>

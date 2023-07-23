@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import { useAuthStore } from "../store";
 import { useNavigate } from "react-router-dom";
 
-const SignUpSuccessPage: React.FC = () => {
+const SignUpSuccessPage = () => {
   const openLoginForm = useAuthStore((state) => state.openLoginForm);
   const navigate = useNavigate();
 

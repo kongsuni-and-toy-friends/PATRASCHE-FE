@@ -27,8 +27,8 @@ const KakaoPage: React.FC = () => {
           login(res.data.name, res.data.access, res.data.refresh);
           navigate("/", { replace: true });
         }
-      } catch {
-        return;
+      } catch (error) {
+        console.log("[에러]", error);
       }
     };
     if (url.get("code")) getToken();
