@@ -1,7 +1,10 @@
-import request from "@/libs/axios";
+import useFetch from "@/hooks/useFetch";
+import usePost from "@/hooks/usePost";
 import { useAuthStore } from "@/store";
-import { FormEvent, useCallback, useState } from "react";
-import shallow from "zustand/shallow";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { shallow } from "zustand/shallow";
 
 interface infoObj {
   email: string;
@@ -10,30 +13,26 @@ interface infoObj {
 
 const useLoginForm = () => {
   const [info, setInfo] = useState<infoObj>({ email: "", password: "" });
+  const idInputRef = useRef(null);
+  const login = useAuthStore((state) => state.login);
+  const closeLoginForm = useAuthStore((state) => state.closeLoginForm);
 
-  const [closeLoginForm, login] = useAuthStore(
-    (state) => [state.closeLoginForm, state.login, state.isLoginFormOpened],
-    shallow
-  );
-  const submitHandler = useCallback(
-    async (event: FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
-      try {
-        const res = await request.post("/auth/login", {
-          email: info.email,
-          pw: info.password,
-        });
-        console.log(res);
-        login("테스트", res.data.access, res.data.refresh);
-        closeLoginForm();
-      } catch (error) {
-        console.log("[에러]", error);
-      }
+  const { mutate: postLogin } = useMutation(usePost("/auth/login"), {
+    onSuccess: (data) => {
+      login(data.name, data.access, data.refresh);
+      closeLoginForm();
+      navigate("");
     },
-    [info.email, login, closeLoginForm, info.password]
-  );
+  });
 
-  const inputHandler = useCallback(
+  const navigate = useNavigate();
+
+  const loginUser = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    postLogin({ email: info.email, pw: info.password });
+  };
+
+  const handleInputChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       setInfo((state) => ({
         ...state,
@@ -43,7 +42,12 @@ const useLoginForm = () => {
     []
   );
 
-  return { info, closeLoginForm, submitHandler, inputHandler };
+  useEffect(() => {
+    if (idInputRef.current !== null)
+      (idInputRef.current as HTMLInputElement).focus();
+  }, []);
+
+  return { info, closeLoginForm, loginUser, handleInputChange, idInputRef };
 };
 
 export default useLoginForm;

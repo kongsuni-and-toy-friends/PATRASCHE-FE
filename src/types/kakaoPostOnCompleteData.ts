@@ -1,4 +1,4 @@
-export interface kakaoPostOnCompleteData {
+export interface KakaoPostOnCompleteData {
   postcode: string;
   postcode1: string;
   postcode2: string;

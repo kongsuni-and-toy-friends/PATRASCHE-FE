@@ -5,15 +5,20 @@ import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import Header from "./Components/UI/Header.tsx";
 import Nav from "./Components/UI/Nav.tsx";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Header />
-      <Nav />
-      <main className="xl:w-[1280px] xl:mx-auto">
-        <App />
-      </main>
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <Header />
+        <Nav />
+        <main className="xl:w-[1280px] xl:mx-auto min-h-[800px]">
+          <App />
+        </main>
+      </BrowserRouter>
+    </QueryClientProvider>
   </React.StrictMode>
 );

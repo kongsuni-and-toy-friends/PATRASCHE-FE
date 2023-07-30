@@ -30,11 +30,12 @@ const SignUpForm = () => {
           중복 확인
         </button>
       </div>
-      {checkButtonClicked && isDuplicated ? (
-        <div>이미 사용중인 이메일입니다.</div>
-      ) : (
-        <div>사용 가능합니다.</div>
-      )}
+      {checkButtonClicked &&
+        (isDuplicated ? (
+          <div>이미 사용중인 이메일입니다.</div>
+        ) : (
+          <div>사용 가능합니다.</div>
+        ))}
       <div>
         <label htmlFor="password">비밀번호</label>
         <input

@@ -1,10 +1,6 @@
-import { useLocation } from "react-router-dom";
-import SignUpForm from "../Components/SignUp/SignUpForm";
+import SignUpForm from "@/Components/SignUp/SignUpForm";
 
 const SignUpPage = () => {
-  const location = useLocation();
-  console.log("location.state", location.state);
-
   return (
     <>
       <h1>회원가입</h1>

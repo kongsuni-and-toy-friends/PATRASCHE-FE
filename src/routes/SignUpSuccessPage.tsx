@@ -7,7 +7,6 @@ const SignUpSuccessPage = () => {
   const navigate = useNavigate();
 
   const buttonClickHandler = useCallback(() => {
-    navigate("/");
     openLoginForm();
   }, [navigate, openLoginForm]);
 
