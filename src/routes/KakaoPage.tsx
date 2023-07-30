@@ -11,10 +11,8 @@ const KakaoPage: React.FC = () => {
   const navigate = useNavigate();
   const login = useAuthStore((state) => state.login);
 
-  console.log("카카오 로그인 중");
   useEffect(() => {
     const url = new URLSearchParams(location.search);
-    console.log(url.get("code"));
     const getToken = async () => {
       try {
         const res = await request.post("/auth/kakao", {

@@ -8,7 +8,7 @@ const Nav: React.FC = () => {
       <Link to="/" className="font-semibold text-4xl">
         파트라슈
       </Link>
-      {user !== null && (
+      {user && (
         <div className="[&>a]:mx-[40px]">
           <NavLink
             to="/analyze"

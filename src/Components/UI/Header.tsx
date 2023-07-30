@@ -4,15 +4,17 @@ import { Link } from "react-router-dom";
 import LoginForm from "../Login/LoginForm";
 
 const Header: React.FC = () => {
-  const [user, openLoginForm, logout, isLoginFormOpened] = useAuthStore(
+  const [user, openLoginForm, isLoginFormOpened, logout] = useAuthStore(
     (state) => [
       state.user,
       state.openLoginForm,
-      state.logout,
       state.isLoginFormOpened,
+      state.logout,
     ],
     shallow
   );
+
+  console.log(user);
 
   return (
     <div className="w-[100%] text-right px-[20px] py-[10px] border-b-[1px] border-b-black">

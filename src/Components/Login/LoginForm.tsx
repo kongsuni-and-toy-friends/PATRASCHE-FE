@@ -7,14 +7,15 @@ const LoginForm: React.FC = () => {
   const backdropRoot = document.getElementById("backdrop") as HTMLElement;
   const modalRoot = document.getElementById("modal") as HTMLElement;
 
-  const { info, closeLoginForm, submitHandler, inputHandler } = useLoginForm();
+  const { info, closeLoginForm, loginUser, handleInputChange, idInputRef } =
+    useLoginForm();
 
   return (
     <>
       {createPortal(<Backdrop onClick={closeLoginForm} />, backdropRoot)}
       {createPortal(
         <form
-          onSubmit={submitHandler}
+          onSubmit={loginUser}
           className="z-20 fixed top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] border-2 border-black w-[600px] h-[400px] bg-white p-[50px]"
         >
           <div className="my-8">
@@ -26,8 +27,9 @@ const LoginForm: React.FC = () => {
               name="email"
               id="email"
               className="border-b-[1px] border-black w-full focus:outline-none"
+              ref={idInputRef}
               value={info.email}
-              onChange={inputHandler}
+              onChange={handleInputChange}
             />
           </div>
           <div className="my-8">
@@ -40,7 +42,7 @@ const LoginForm: React.FC = () => {
               id="password"
               className="border-b-[1px] border-black w-full focus:outline-none"
               value={info.password}
-              onChange={inputHandler}
+              onChange={handleInputChange}
             />
           </div>
           <button className="border-[1px] border-black w-3/4 h-12 mx-auto block mt-16 mb-4">
