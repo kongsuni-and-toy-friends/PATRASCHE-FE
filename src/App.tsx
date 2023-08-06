@@ -16,8 +16,6 @@ function App() {
   const user = useAuthStore((state) => state.user);
   return (
     <>
-      <div id="backdrop"></div>
-      <div id="modal"></div>
       <Routes>
         <Route path="" element={<RootPage />} />
         <Route

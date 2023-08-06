@@ -1,4 +1,5 @@
 import ReservationBar from "@/Components/Counselor/ReservationBar";
+import Line from "@/Components/UI/Line";
 import useCounselorDetailPage from "@/Logic/routes/useCounselorDetailPage";
 
 const CounselorDetailPage = () => {
@@ -36,6 +37,7 @@ const CounselorDetailPage = () => {
           ))}
         </div>
       </div>
+      <Line />
       <h1>{JSON.stringify(data, null, 2)}</h1>
       <h1>{JSON.stringify(data, null, 2)}</h1>
       <h1>{JSON.stringify(data, null, 2)}</h1>

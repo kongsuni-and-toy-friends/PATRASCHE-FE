@@ -1,9 +1,13 @@
 import CounselorListItem from "./CounselorListItem";
 import CounselorFilter from "./CounselorFilter";
-import useCounselorList from "@/Logic/Components/Counselor/useCounselorList";
+import useFetch from "@/hooks/useFetch";
+import { CounselorInfo } from "@/types/counselorInfo";
 
 const counselorList = () => {
-  const { data, isLoading, error } = useCounselorList();
+  const { data, isLoading, error } = useFetch<CounselorInfo[]>("/counselor", {
+    queryKey: ["counselor"],
+    select: (data: { response: CounselorInfo[] }) => data.response,
+  });
 
   if (isLoading) return <>로딩 중</>;
   if (error) return <h1>에러 발생</h1>;

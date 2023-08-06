@@ -12,6 +12,8 @@ const queryClient = new QueryClient();
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
+      <div id="backdrop"></div>
+      <div id="modal"></div>
       <BrowserRouter>
         <Header />
         <Nav />
