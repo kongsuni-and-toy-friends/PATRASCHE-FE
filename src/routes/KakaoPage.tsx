@@ -37,7 +37,7 @@ const KakaoPage: React.FC = () => {
   const modalRoot = document.getElementById("modal") as HTMLElement;
   return (
     <>
-      {createPortal(<Backdrop />, backdropRoot)}
+      {/* {createPortal(<Backdrop />, backdropRoot)}
       {createPortal(
         <FadeLoader
           color="#ffffff"
@@ -50,7 +50,7 @@ const KakaoPage: React.FC = () => {
           }}
         />,
         modalRoot
-      )}
+      )} */}
     </>
   );
 };

@@ -1,20 +1,23 @@
 import request from "@/libs/axios";
 import { useAuthStore } from "@/store";
-import { useCallback } from "react";
+import { useQuery } from "@tanstack/react-query";
 
-function useFetch(url: string) {
+function useFetch<TData>(url: string, reactQueryConfig: any) {
   const access = useAuthStore((state) => state.access);
-
-  const fetchData = useCallback(async () => {
+  const fetchData = async (): Promise<TData> => {
     const res = await request.get(url, {
       headers: {
         Authorization: `Bearer ${access}`,
       },
     });
     return res.data;
-  }, [url, access]);
+  };
 
-  return fetchData;
+  const { data, isLoading, error, refetch, remove } = useQuery<TData>({
+    ...reactQueryConfig,
+    queryFn: fetchData,
+  });
+  return { data, isLoading, error, refetch, remove };
 }
 
 export default useFetch;

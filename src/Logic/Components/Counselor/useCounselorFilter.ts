@@ -1,6 +1,5 @@
+import useSgisFetch from "@/hooks/useSgisFetch";
 import { SgisData } from "@/types/sgisData";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { useEffect, useState } from "react";
 
 const useCounselorFilter = () => {
@@ -10,71 +9,72 @@ const useCounselorFilter = () => {
     village: string;
   }>({ city: "", town: "", village: "" });
 
-  const { data: accessToken } = useQuery(["access"], async () => {
-    const res = await axios.get(
-      `https://sgisapi.kostat.go.kr/OpenAPI3/auth/authentication.json?consumer_key=${
-        import.meta.env.VITE_CONSUMER_KEY
-      }&consumer_secret=${import.meta.env.VITE_CONSUMER_SECRET}`
-    );
-    return res.data.result.accessToken;
-  });
-
-  const { data: cityList } = useQuery<SgisData[]>(
-    ["city"],
-    async () => {
-      const res = await axios.get(
-        "https://sgisapi.kostat.go.kr/OpenAPI3/addr/stage.json",
-        {
-          params: {
-            accessToken: accessToken,
-          },
-        }
-      );
-      return res.data.result;
+  const {
+    data: accessToken,
+    isLoading: accessTokenLoading,
+    error: accessTokenError,
+  } = useSgisFetch<string>(
+    `/OpenAPI3/auth/authentication.json`,
+    {
+      queryKey: ["access"],
+      refetchInterval: 1000 * 60 * 60 * 5,
+      refetchIntervalInBackground: true,
+      select: (data: { accessToken: string }) => {
+        return data.accessToken;
+      },
     },
-    { enabled: !!accessToken }
+    {
+      params: {
+        consumer_key: import.meta.env.VITE_CONSUMER_KEY,
+        consumer_secret: import.meta.env.VITE_CONSUMER_SECRET,
+      },
+    }
+  );
+
+  const {
+    data: cityList,
+    isLoading: cityListIsLoading,
+    error: cityListError,
+  } = useSgisFetch<SgisData[]>(
+    "/OpenAPI3/addr/stage.json",
+    {
+      queryKey: ["city"],
+      enabled: !!accessToken,
+    },
+    { params: { accessToken: accessToken } }
   );
 
   const {
     data: townList,
     refetch: refetchTown,
     remove: removeTown,
-  } = useQuery<SgisData[]>(
-    ["town"],
-    async () => {
-      const res = await axios.get(
-        "https://sgisapi.kostat.go.kr/OpenAPI3/addr/stage.json",
-        {
-          params: {
-            accessToken: accessToken,
-            cd: areaCode.city,
-          },
-        }
-      );
-      return res.data.result;
+  } = useSgisFetch<SgisData[]>(
+    "/OpenAPI3/addr/stage.json",
+    {
+      queryKey: ["town"],
+      enabled: !!areaCode.city,
     },
-    { enabled: !!areaCode.city }
+    {
+      params: {
+        accessToken: accessToken,
+        cd: areaCode.city,
+      },
+    }
   );
 
   const {
     data: villageList,
     refetch: refetchVillage,
     remove: removeVillage,
-  } = useQuery<SgisData[]>(
-    ["village"],
-    async () => {
-      const res = await axios.get(
-        "https://sgisapi.kostat.go.kr/OpenAPI3/addr/stage.json",
-        {
-          params: {
-            accessToken: accessToken,
-            cd: areaCode.town,
-          },
-        }
-      );
-      return res.data.result;
+  } = useSgisFetch<SgisData[]>(
+    "/OpenAPI3/addr/stage.json",
+    {
+      queryKey: ["village"],
+      enabled: !!areaCode.town,
     },
-    { enabled: !!areaCode.town }
+    {
+      params: { accessToken: accessToken, cd: areaCode.town },
+    }
   );
 
   const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
