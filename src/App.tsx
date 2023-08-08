@@ -15,6 +15,7 @@ import CounselorDetailPage from "./routes/CounselorDetailPage";
 import MyPageEntry from "./Components/MyPage/MyPageEntry";
 import DollListPage from "./Components/MyPage/Doll/DollListPage";
 import DollEnrollPage from "./Components/MyPage/Doll/DollEnrollPage";
+import RecordPage from "./Components/MyPage/Record/RecordPage";
 function App() {
   const user = useGlobalStore((state) => state.user);
   return (
@@ -80,7 +81,7 @@ function App() {
             <Route path="" element={<DollListPage />} />
             <Route path="enroll" element={<DollEnrollPage />} />
           </Route>
-          <Route path="record" element={<h1>내역 조회</h1>} />
+          <Route path="record" element={<RecordPage />} />
           <Route path="info" element={<h1>내 정보 수정</h1>} />
           <Route path="faq" element={<h1>FAQ</h1>} />
         </Route>

@@ -1,4 +1,4 @@
-interface Doll {
+export interface Doll {
   birth: string;
   doll: string;
   gender: string;
@@ -6,5 +6,3 @@ interface Doll {
   name: string;
   thumbnail: string;
 }
-
-export default Doll;
