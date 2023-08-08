@@ -1,6 +1,6 @@
 import request from "@/libs/axios";
 import parseAddress from "@/libs/parseAddress";
-import { useAuthStore } from "@/store";
+import { useGlobalStore } from "@/store";
 import { KakaoPostOnCompleteData } from "@/types/kakaoPostOnCompleteData";
 import { useCallback, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -23,7 +23,7 @@ const useKakaoSignUpPage = () => {
   const detailAddressRef = useRef(null);
   const location = useLocation();
   const navigate = useNavigate();
-  const login = useAuthStore((state) => state.login);
+  const login = useGlobalStore((state) => state.login);
 
   const [info, setInfo] = useState<kakaoInfo>({
     name: location.state.name,

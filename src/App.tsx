@@ -10,10 +10,14 @@ import MyPage from "./routes/MyPage";
 import KakaoSignUpPage from "./routes/KakaoSignUpPage";
 import ConnectPage from "./routes/ConnectPage";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { useAuthStore } from "./store";
+import { useGlobalStore } from "./store";
 import CounselorDetailPage from "./routes/CounselorDetailPage";
+import MyPageEntry from "./Components/MyPage/MyPageEntry";
+import DollListPage from "./Components/MyPage/Doll/DollListPage";
+import DollEnrollPage from "./Components/MyPage/Doll/DollEnrollPage";
+import RecordPage from "./Components/MyPage/Record/RecordPage";
 function App() {
-  const user = useAuthStore((state) => state.user);
+  const user = useGlobalStore((state) => state.user);
   return (
     <>
       <Routes>
@@ -71,7 +75,16 @@ function App() {
         <Route
           path="mypage"
           element={user ? <MyPage /> : <Navigate to="/" replace={true} />}
-        />
+        >
+          <Route path="" element={<MyPageEntry />} />
+          <Route path="list">
+            <Route path="" element={<DollListPage />} />
+            <Route path="enroll" element={<DollEnrollPage />} />
+          </Route>
+          <Route path="record" element={<RecordPage />} />
+          <Route path="info" element={<h1>내 정보 수정</h1>} />
+          <Route path="faq" element={<h1>FAQ</h1>} />
+        </Route>
         <Route path="connect" element={<ConnectPage />} />
       </Routes>
       <ReactQueryDevtools initialIsOpen={true} />

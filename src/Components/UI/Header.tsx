@@ -1,10 +1,10 @@
 import { shallow } from "zustand/shallow";
-import { useAuthStore } from "../../store";
+import { useGlobalStore } from "../../store";
 import { Link } from "react-router-dom";
 import LoginForm from "../Login/LoginForm";
 
 const Header: React.FC = () => {
-  const [user, openLoginForm, isLoginFormOpened, logout] = useAuthStore(
+  const [user, openLoginForm, isLoginFormOpened, logout] = useGlobalStore(
     (state) => [
       state.user,
       state.openLoginForm,

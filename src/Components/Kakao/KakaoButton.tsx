@@ -10,7 +10,7 @@ const KakaoButton = () => {
     <button className={buttonClass} onClick={kakaoLogin}>
       <img
         className="w-[30px] h-[30px] mx-[12px]"
-        src="/kakao.svg"
+        src="kakao.svg"
         alt="카카오 로그인"
       />
       <span className="text-black/85 grow">카카오 로그인</span>

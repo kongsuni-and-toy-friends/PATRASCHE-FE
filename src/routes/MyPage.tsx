@@ -1,5 +1,13 @@
+import MyPageNav from "@/Components/MyPage/MyPageNav";
+import { Outlet } from "react-router-dom";
+
 const MyPage = () => {
-  return <h1>마이 페이지</h1>;
+  return (
+    <>
+      <MyPageNav />
+      <Outlet />
+    </>
+  );
 };
 
 export default MyPage;

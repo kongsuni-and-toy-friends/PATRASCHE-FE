@@ -1,10 +1,8 @@
-import useFetch from "@/hooks/useFetch";
 import usePost from "@/hooks/usePost";
-import { useAuthStore } from "@/store";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useGlobalStore } from "@/store";
+import { useMutation } from "@tanstack/react-query";
 import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { shallow } from "zustand/shallow";
 
 interface infoObj {
   email: string;
@@ -14,8 +12,8 @@ interface infoObj {
 const useLoginForm = () => {
   const [info, setInfo] = useState<infoObj>({ email: "", password: "" });
   const idInputRef = useRef(null);
-  const login = useAuthStore((state) => state.login);
-  const closeLoginForm = useAuthStore((state) => state.closeLoginForm);
+  const login = useGlobalStore((state) => state.login);
+  const closeLoginForm = useGlobalStore((state) => state.closeLoginForm);
 
   const { mutate: postLogin } = useMutation(usePost("/auth/login"), {
     onSuccess: (data) => {

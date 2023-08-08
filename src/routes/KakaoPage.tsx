@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAuthStore } from "../store";
+import { useGlobalStore } from "../store";
 import request from "@/libs/axios";
 import { createPortal } from "react-dom";
 import Backdrop from "@/Components/UI/Backdrop";
@@ -9,7 +9,7 @@ import { FadeLoader } from "react-spinners";
 const KakaoPage: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const login = useAuthStore((state) => state.login);
+  const login = useGlobalStore((state) => state.login);
 
   useEffect(() => {
     const url = new URLSearchParams(location.search);

@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-interface authState {
+interface globalState {
   user: string | null;
   access: string;
   refresh: string;
@@ -9,9 +9,12 @@ interface authState {
   isLoginFormOpened: boolean;
   openLoginForm: () => void;
   closeLoginForm: () => void;
+  isConnectionFormOpened: boolean;
+  openConnectionForm: () => void;
+  closeConnectionForm: () => void;
 }
 
-const useAuthStore = create<authState>()((set) => ({
+const useGlobalStore = create<globalState>()((set) => ({
   user: null,
   access: "",
   refresh: "",
@@ -21,6 +24,9 @@ const useAuthStore = create<authState>()((set) => ({
   isLoginFormOpened: false,
   openLoginForm: () => set(() => ({ isLoginFormOpened: true })),
   closeLoginForm: () => set(() => ({ isLoginFormOpened: false })),
+  isConnectionFormOpened: false,
+  openConnectionForm: () => set(() => ({ isConnectionFormOpened: true })),
+  closeConnectionForm: () => set(() => ({ isConnectionFormOpened: false })),
 }));
 
-export { useAuthStore };
+export { useGlobalStore };
