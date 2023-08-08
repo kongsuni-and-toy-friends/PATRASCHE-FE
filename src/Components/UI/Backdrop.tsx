@@ -2,7 +2,7 @@ interface BackdropProps {
   onClick?: () => void;
 }
 
-const Backdrop: React.FC<BackdropProps> = ({ onClick }) => {
+const Backdrop = ({ onClick }: BackdropProps) => {
   return (
     <div
       onClick={onClick}

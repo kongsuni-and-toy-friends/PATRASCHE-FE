@@ -11,8 +11,8 @@ const useCounselorFilter = () => {
 
   const {
     data: accessToken,
-    isLoading: accessTokenLoading,
-    error: accessTokenError,
+    // isLoading: accessTokenLoading,
+    // error: accessTokenError,
   } = useSgisFetch<string>(
     `/OpenAPI3/auth/authentication.json`,
     {
@@ -33,8 +33,8 @@ const useCounselorFilter = () => {
 
   const {
     data: cityList,
-    isLoading: cityListIsLoading,
-    error: cityListError,
+    // isLoading: cityListIsLoading,
+    // error: cityListError,
   } = useSgisFetch<SgisData[]>(
     "/OpenAPI3/addr/stage.json",
     {

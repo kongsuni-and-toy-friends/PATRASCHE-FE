@@ -13,10 +13,7 @@ const SignUpForm = () => {
   } = useSignUpForm();
 
   return (
-    <form
-      className="[&_input]:border-b-[1px] [&_input]:border-black [&_input]:outline-none"
-      onSubmit={signUpUser}
-    >
+    <form onSubmit={signUpUser}>
       <div>
         <label htmlFor="email">이메일</label>
         <input

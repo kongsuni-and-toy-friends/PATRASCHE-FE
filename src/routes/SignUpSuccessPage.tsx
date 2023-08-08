@@ -1,9 +1,9 @@
 import { useCallback } from "react";
-import { useAuthStore } from "../store";
+import { useGlobalStore } from "../store";
 import { useNavigate } from "react-router-dom";
 
 const SignUpSuccessPage = () => {
-  const openLoginForm = useAuthStore((state) => state.openLoginForm);
+  const openLoginForm = useGlobalStore((state) => state.openLoginForm);
   const navigate = useNavigate();
 
   const buttonClickHandler = useCallback(() => {

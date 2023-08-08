@@ -1,9 +1,9 @@
 import request from "@/libs/axios";
-import { useAuthStore } from "@/store";
+import { useGlobalStore } from "@/store";
 import { useQuery } from "@tanstack/react-query";
 
 function useFetch<TData>(url: string, reactQueryConfig: any) {
-  const access = useAuthStore((state) => state.access);
+  const access = useGlobalStore((state) => state.access);
   const fetchData = async (): Promise<TData> => {
     const res = await request.get(url, {
       headers: {

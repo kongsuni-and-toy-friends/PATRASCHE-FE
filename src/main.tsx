@@ -17,7 +17,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       <BrowserRouter>
         <Header />
         <Nav />
-        <main className="xl:w-[1280px] xl:mx-auto min-h-[800px]">
+        <main className="xl:w-[1280px] xl:mx-auto min-h-[800px] [&_input]:border-b-[1px] [&_input]:border-black [&_input]:outline-none">
           <App />
         </main>
       </BrowserRouter>

@@ -1,9 +1,9 @@
 import request from "@/libs/axios";
-import { useAuthStore } from "@/store";
+import { useGlobalStore } from "@/store";
 import { useCallback } from "react";
 
 const usePost = (url: string) => {
-  const access = useAuthStore((state) => state.access);
+  const access = useGlobalStore((state) => state.access);
 
   const postData = useCallback(
     async (data: any) => {
