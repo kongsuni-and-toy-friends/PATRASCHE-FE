@@ -1,5 +1,6 @@
+import Line from "@/Components/UI/Line";
 import useFetch from "@/hooks/useFetch";
-import Doll from "@/types/doll";
+import { Doll } from "@/types/doll";
 
 interface DollListProps {
   enroll: () => void;
@@ -14,9 +15,9 @@ const DollList = ({ enroll }: DollListProps) => {
     queryKey: ["child"],
     select: (data: { response: Doll[] }) => data.response,
   });
-  
+
   if (isLoading) return <h1>로딩 중</h1>;
-  if (error) return <h1>에러 발생</h1>
+  if (error) return <h1>에러 발생</h1>;
   if (!dolls || dolls.length === 0) {
     return (
       <>
@@ -26,9 +27,19 @@ const DollList = ({ enroll }: DollListProps) => {
     );
   }
   return (
-    <ul>
+    <ul className="w-3/4 mx-auto text-center">
+      <li className="flex  justify-around">
+        <div className="w-1/3">아이 이름</div>
+        <div className="w-1/3">인형 이름</div>
+        <div className="w-1/3">삭제</div>
+      </li>
+      <Line />
       {dolls.map((doll) => (
-        <li key={doll.id}>{doll.name}</li>
+        <li key={doll.id} className="flex justify-around">
+          <div className="w-1/3">{doll.name}</div>
+          <div className="w-1/3">{doll.doll}</div>
+          <button className="w-1/3">삭제</button>
+        </li>
       ))}
     </ul>
   );

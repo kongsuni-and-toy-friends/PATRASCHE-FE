@@ -10,8 +10,9 @@ const DollEnrollPage = () => {
     isConnectionFormOpened,
     // openConnectionForm,
     closeConnectionForm,
-    checkPin,
     isLoading,
+    pinIsAvailable,
+    refetch,
   } = useDollEnrollPage();
 
   if (isLoading) return <h1>아이를 등록중입니다.</h1>;
@@ -37,15 +38,15 @@ const DollEnrollPage = () => {
             value={info.pin}
             onChange={handleInputChange}
           />
-          <button type="button" onClick={checkPin}>
+          <button type="button" onClick={() => refetch()}>
             연결하기
           </button>
         </div>
         <div className="h-4">
-          {info.pinIsChecked &&
-            (info.pinIsDuplicated
-              ? "이미 등록된 PIN 번호 입니다."
-              : "사용 가능한 PIN 번호 입니다.")}
+          {pinIsAvailable !== undefined &&
+            (pinIsAvailable
+              ? "사용 가능한 PIN 번호 입니다."
+              : "이미 등록된 PIN 번호 입니다.")}
         </div>
         <div>
           <label htmlFor="name">아이 이름</label>
