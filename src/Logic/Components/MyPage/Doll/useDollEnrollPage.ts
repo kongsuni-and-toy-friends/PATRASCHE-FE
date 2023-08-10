@@ -1,9 +1,10 @@
+import useFetch from "@/hooks/useFetch";
 import usePost from "@/hooks/usePost";
+import request from "@/libs/axios";
 import { useGlobalStore } from "@/store";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router";
-import { shallow } from "zustand/shallow";
 
 interface DollEnrollProps {
   pin: string;
@@ -11,8 +12,6 @@ interface DollEnrollProps {
   gender: string;
   doll: string;
   birth: string;
-  pinIsChecked: boolean;
-  isUserFeedBackNeeded: boolean;
 }
 
 const useDollEnrollPage = () => {
@@ -22,19 +21,17 @@ const useDollEnrollPage = () => {
     gender: "",
     doll: "",
     birth: "",
-    pinIsChecked: false,
-    isUserFeedBackNeeded: false,
   });
 
-  const [isConnectionFormOpened, openConnectionForm, closeConnectionForm] =
-    useGlobalStore(
-      (state) => [
-        state.isConnectionFormOpened,
-        state.openConnectionForm,
-        state.closeConnectionForm,
-      ],
-      shallow
-    );
+  const isConnectionFormOpened = useGlobalStore(
+    (state) => state.isConnectionFormOpened
+  );
+  const openConnectionForm = useGlobalStore(
+    (state) => state.openConnectionForm
+  );
+  const closeConnectionForm = useGlobalStore(
+    (state) => state.closeConnectionForm
+  );
 
   const navigate = useNavigate();
 
@@ -44,7 +41,7 @@ const useDollEnrollPage = () => {
 
   const queryClient = useQueryClient();
 
-  const { mutate } = useMutation(usePost("/mypage/enroll"), {
+  const { mutate, isLoading } = useMutation(usePost("/mypage/enroll"), {
     onSuccess: () => {
       queryClient.invalidateQueries();
       navigate(-1);
@@ -58,9 +55,30 @@ const useDollEnrollPage = () => {
     mutate(info);
   };
 
-  const checkPin = useCallback(() => {
-    setInfo((prev) => ({ ...prev, pinIsChecked: true }));
-  }, []);
+  // const checkPin = async () => {
+  //   const res = await request.get("/mypage/doll_check", {
+  //     headers: { Authorization: `Bearer ${access}` },
+  //     params: { pin: info.pin },
+  //   });
+  //   setInfo((prev) => ({
+  //     ...prev,
+  //     pinIsChecked: true,
+  //     pinIsDuplicated: !res.data.response,
+  //   }));
+  // };
+
+  const { data: pinIsAvailable, refetch } = useFetch<boolean>(
+    "/mypage/doll_check",
+    {
+      queryKey: ["dollCheck"],
+      select: (data: { response: boolean }) => data.response,
+      enabled: false,
+      cacheTime: 0,
+    },
+    {
+      params: { pin: info.pin },
+    }
+  );
 
   return {
     info,
@@ -69,7 +87,9 @@ const useDollEnrollPage = () => {
     isConnectionFormOpened,
     openConnectionForm,
     closeConnectionForm,
-    checkPin,
+    isLoading,
+    pinIsAvailable,
+    refetch,
   };
 };
 

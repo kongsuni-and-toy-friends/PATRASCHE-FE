@@ -21,6 +21,7 @@ const useLoginForm = () => {
       closeLoginForm();
       navigate("");
     },
+    onError: () => setHasError(true),
   });
 
   const navigate = useNavigate();
@@ -45,7 +46,16 @@ const useLoginForm = () => {
       (idInputRef.current as HTMLInputElement).focus();
   }, []);
 
-  return { info, closeLoginForm, loginUser, handleInputChange, idInputRef };
+  const [hasError, setHasError] = useState(false);
+
+  return {
+    info,
+    closeLoginForm,
+    loginUser,
+    handleInputChange,
+    idInputRef,
+    hasError,
+  };
 };
 
 export default useLoginForm;

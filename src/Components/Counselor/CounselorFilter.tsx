@@ -7,7 +7,7 @@ const CounselorFilter = () => {
   return (
     <div className="border-b-2 border-black">
       <form>
-        <div>
+        <div className="[&_select]:w-40">
           <select name="city" onChange={handleOptionChange}>
             <option value="">시/도</option>
             {cityList &&

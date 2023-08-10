@@ -98,7 +98,7 @@ const useSignUpForm = () => {
     }).open();
   }, []);
 
-  const checkEmailDuplication = useCallback(async () => {
+  const checkEmailDuplication = async () => {
     try {
       setCheckButtonClicked(true);
       const res = await request.get(`/auth/dupcheck?email=${info.email}`);
@@ -110,7 +110,7 @@ const useSignUpForm = () => {
     } catch (error) {
       console.log("[에러]", error);
     }
-  }, [info.email]);
+  };
 
   return {
     info,
