@@ -1,7 +1,7 @@
 import { useState } from "react";
 import RecordFilter from "./RecordFilter";
 import useFetch from "@/hooks/useFetch";
-import { Record } from "@/types/Record";
+import { Record } from "@/types/record";
 import { Reservation } from "@/types/reservation";
 import RecordList from "./RecordList";
 import ReservationList from "./ReservationList";

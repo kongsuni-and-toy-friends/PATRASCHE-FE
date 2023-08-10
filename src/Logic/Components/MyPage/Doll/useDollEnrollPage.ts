@@ -1,4 +1,6 @@
+import useFetch from "@/hooks/useFetch";
 import usePost from "@/hooks/usePost";
+import request from "@/libs/axios";
 import { useGlobalStore } from "@/store";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useCallback, useState } from "react";
@@ -12,7 +14,7 @@ interface DollEnrollProps {
   doll: string;
   birth: string;
   pinIsChecked: boolean;
-  isUserFeedBackNeeded: boolean;
+  pinIsDuplicated: boolean;
 }
 
 const useDollEnrollPage = () => {
@@ -23,18 +25,23 @@ const useDollEnrollPage = () => {
     doll: "",
     birth: "",
     pinIsChecked: false,
-    isUserFeedBackNeeded: false,
+    pinIsDuplicated: false,
   });
 
-  const [isConnectionFormOpened, openConnectionForm, closeConnectionForm] =
-    useGlobalStore(
-      (state) => [
-        state.isConnectionFormOpened,
-        state.openConnectionForm,
-        state.closeConnectionForm,
-      ],
-      shallow
-    );
+  const [
+    isConnectionFormOpened,
+    openConnectionForm,
+    closeConnectionForm,
+    access,
+  ] = useGlobalStore(
+    (state) => [
+      state.isConnectionFormOpened,
+      state.openConnectionForm,
+      state.closeConnectionForm,
+      state.access,
+    ],
+    shallow
+  );
 
   const navigate = useNavigate();
 
@@ -44,7 +51,7 @@ const useDollEnrollPage = () => {
 
   const queryClient = useQueryClient();
 
-  const { mutate } = useMutation(usePost("/mypage/enroll"), {
+  const { mutate, isLoading } = useMutation(usePost("/mypage/enroll"), {
     onSuccess: () => {
       queryClient.invalidateQueries();
       navigate(-1);
@@ -58,9 +65,18 @@ const useDollEnrollPage = () => {
     mutate(info);
   };
 
-  const checkPin = useCallback(() => {
-    setInfo((prev) => ({ ...prev, pinIsChecked: true }));
-  }, []);
+  const checkPin = async () => {
+    const res = await request.get("/mypage/doll_check", {
+      headers: { Authorization: `Bearer ${access}` },
+      params: { pin: info.pin },
+    });
+    console.log(res);
+    setInfo((prev) => ({
+      ...prev,
+      pinIsChecked: true,
+      pinIsDuplicated: !res.data.response,
+    }));
+  };
 
   return {
     info,
@@ -70,6 +86,7 @@ const useDollEnrollPage = () => {
     openConnectionForm,
     closeConnectionForm,
     checkPin,
+    isLoading,
   };
 };
 

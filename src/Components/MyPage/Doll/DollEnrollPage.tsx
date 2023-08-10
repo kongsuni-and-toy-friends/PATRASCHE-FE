@@ -1,5 +1,6 @@
 import Backdrop from "@/Components/UI/Backdrop";
 import useDollEnrollPage from "@/Logic/Components/MyPage/Doll/useDollEnrollPage";
+import { createPortal } from "react-dom";
 
 const DollEnrollPage = () => {
   const {
@@ -7,22 +8,26 @@ const DollEnrollPage = () => {
     handleInputChange,
     enrollDoll,
     isConnectionFormOpened,
-    openConnectionForm,
+    // openConnectionForm,
     closeConnectionForm,
-    // checkPin,
+    checkPin,
+    isLoading,
   } = useDollEnrollPage();
 
-  // const backdropRoot = document.getElementById("backdrop") as HTMLElement;
+  if (isLoading) return <h1>아이를 등록중입니다.</h1>;
+  const backdropRoot = document.getElementById("backdrop") as HTMLElement;
   // const modalRoot = document.getElementById("modal") as HTMLElement;
   return (
     <>
       {isConnectionFormOpened && (
         <>
-          createPortal(
-          <Backdrop onClick={closeConnectionForm} />, backdropRoot)
+          {createPortal(
+            <Backdrop onClick={closeConnectionForm} />,
+            backdropRoot
+          )}
         </>
       )}
-      <form onSubmit={enrollDoll}>
+      <form onSubmit={enrollDoll} className="[&>div]:my-1">
         <div>
           <label htmlFor="pin">인형 PIN 번호</label>
           <input
@@ -32,9 +37,15 @@ const DollEnrollPage = () => {
             value={info.pin}
             onChange={handleInputChange}
           />
-          <button type="button" onClick={openConnectionForm}>
+          <button type="button" onClick={checkPin}>
             연결하기
           </button>
+        </div>
+        <div className="h-4">
+          {info.pinIsChecked &&
+            (info.pinIsDuplicated
+              ? "이미 등록된 PIN 번호 입니다."
+              : "사용 가능한 PIN 번호 입니다.")}
         </div>
         <div>
           <label htmlFor="name">아이 이름</label>
@@ -54,7 +65,9 @@ const DollEnrollPage = () => {
             value="male"
             onChange={handleInputChange}
           />
-          <label htmlFor="male">남자</label>
+          <label htmlFor="male" className="mx-2">
+            남자
+          </label>
           <input
             type="radio"
             id="female"
@@ -62,7 +75,9 @@ const DollEnrollPage = () => {
             value="female"
             onChange={handleInputChange}
           />
-          <label htmlFor="female">여자</label>
+          <label htmlFor="female" className="mx-2">
+            여자
+          </label>
         </div>
         <div>
           <label htmlFor="birth">아이 생일</label>

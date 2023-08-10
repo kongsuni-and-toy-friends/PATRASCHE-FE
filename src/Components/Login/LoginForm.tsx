@@ -7,8 +7,14 @@ const LoginForm: React.FC = () => {
   const backdropRoot = document.getElementById("backdrop") as HTMLElement;
   const modalRoot = document.getElementById("modal") as HTMLElement;
 
-  const { info, closeLoginForm, loginUser, handleInputChange, idInputRef } =
-    useLoginForm();
+  const {
+    info,
+    closeLoginForm,
+    loginUser,
+    handleInputChange,
+    idInputRef,
+    hasError,
+  } = useLoginForm();
 
   return (
     <>
@@ -16,7 +22,7 @@ const LoginForm: React.FC = () => {
       {createPortal(
         <form
           onSubmit={loginUser}
-          className="z-20 fixed top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] border-2 border-black w-[600px] h-[400px] bg-white p-[50px]"
+          className="z-20 fixed top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] border-2 border-black w-[600px] min-h-[400px] bg-white p-[50px]"
         >
           <div className="my-8">
             <label htmlFor="email" className="block">
@@ -45,7 +51,12 @@ const LoginForm: React.FC = () => {
               onChange={handleInputChange}
             />
           </div>
-          <button className="border-[1px] border-black w-3/4 h-12 mx-auto block mt-16 mb-4">
+          {hasError && (
+            <div className="absolute left-1/2 top-56 translate-x-[-50%]">
+              이메일, 비밀번호가 잘못 입력되었습니다.
+            </div>
+          )}
+          <button className="border-[1px] border-black w-3/4 h-12 mx-auto block mt-12 mb-4">
             로그인
           </button>
           <KakaoButton />
