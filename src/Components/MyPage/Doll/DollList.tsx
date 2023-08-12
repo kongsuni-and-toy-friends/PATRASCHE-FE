@@ -1,6 +1,7 @@
 import Line from "@/Components/UI/Line";
 import useFetch from "@/hooks/useFetch";
 import { Doll } from "@/types/doll";
+import DollListItem from "./DollListItem";
 
 interface DollListProps {
   enroll: () => void;
@@ -35,11 +36,7 @@ const DollList = ({ enroll }: DollListProps) => {
       </li>
       <Line />
       {dolls.map((doll) => (
-        <li key={doll.id} className="flex justify-around">
-          <div className="w-1/3">{doll.name}</div>
-          <div className="w-1/3">{doll.doll}</div>
-          <button className="w-1/3">삭제</button>
-        </li>
+        <DollListItem key={doll.id} doll={doll} />
       ))}
     </ul>
   );
